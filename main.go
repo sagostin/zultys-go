@@ -14,7 +14,7 @@ func main() {
 		Password:  "",
 	}
 
-	zSess, _, err := loginRequest.Login("zultys.topsoffice.ca")
+	zSess, _, err := loginRequest.Login("108.165.150.21")
 
 	if err != nil {
 		log.Fatal(err)
@@ -58,4 +58,21 @@ func main() {
 	}
 
 	fmt.Println("Response: ", string(bytesDeviceResp))
+
+	licenses, err := zSess.SendCommand(zultys.MethodGet, "adm_get_licenses", getParams, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	licensesResp, err := zultys.HandleLicenseResponse(licenses)
+	if err != nil {
+		return
+	}
+
+	bytesLicensesResp, err := json.Marshal(licensesResp)
+	if err != nil {
+		return
+	}
+
+	fmt.Println("Response: ", string(bytesLicensesResp))
 }
