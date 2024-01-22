@@ -60,7 +60,7 @@ type UserListResponse struct {
 	Users   []User `json:"users"`
 }
 
-func getUsersResponse(resp *http.Response) (*UserListResponse, error) {
+func handleGetUsersResponse(resp *http.Response) (*UserListResponse, error) {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {

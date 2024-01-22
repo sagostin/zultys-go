@@ -74,6 +74,13 @@ func (l *LoginRequest) Login(host string) (*ZultysSession, *LoginResponse, error
 	zSession.Host = host
 	zSession.Session = response.Session
 
+	if response.Success == false {
+		return nil, response, errors.New("login failed")
+	} else if response.ApiAccess.WebAdmin == false {
+		return nil, response, errors.New("user does not have WebAdmin access")
+	}
+	// todo handle normal user accounts for like voicemail administration and such?
+
 	return zSession, response, err
 }
 
