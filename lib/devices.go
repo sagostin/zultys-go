@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"encoding/json"
@@ -38,7 +38,7 @@ type DeviceListResponse struct {
 	Success bool     `json:"success"`
 }
 
-func handleDeviceListResponse(resp *http.Response) (*DeviceListResponse, error) {
+func HandleDeviceListResponse(resp *http.Response) (*DeviceListResponse, error) {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {

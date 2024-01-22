@@ -4,16 +4,21 @@ import (
 	"encoding/json"
 	"fmt"
 	log "github.com/sirupsen/logrus"
+	zultys "zultys-go/lib"
 )
 
 func main() {
 	// Create a new LoginRequest
-	loginRequest := LoginRequest{
+	loginRequest := zultys.LoginRequest{
 		UserLogin: "Administrator",
 		Password:  "",
 	}
 
-	zSess, _, err := loginRequest.Login("")
+	zSess, _, err := loginRequest.Login("zultys.topsoffice.ca")
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// For a GET request
 	getParams := map[string]interface{}{
@@ -22,12 +27,12 @@ func main() {
 	}
 	// page=1&limit=100
 
-	tt, err := zSess.SendCommand(MethodGet, "adm_get_users", getParams, nil)
+	tt, err := zSess.SendCommand(zultys.MethodGet, "adm_get_users", getParams, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	response, err := handleGetUsersResponse(tt)
+	response, err := zultys.HandleGetUsersResponse(tt)
 	if err != nil {
 		return
 	}
@@ -37,12 +42,12 @@ func main() {
 		return
 	}
 
-	devices, err := zSess.SendCommand(MethodGet, "adm_get_devices", getParams, nil)
+	devices, err := zSess.SendCommand(zultys.MethodGet, "adm_get_devices", getParams, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	deviceResp, err := handleDeviceListResponse(devices)
+	deviceResp, err := zultys.HandleDeviceListResponse(devices)
 	if err != nil {
 		return
 	}

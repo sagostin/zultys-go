@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"bytes"
@@ -22,7 +22,11 @@ func (l *LoginRequest) Login(host string) (*ZultysSession, *LoginResponse, error
 	// Convert credentials to JSON
 	jsonCredentials, err := json.Marshal(l)
 	if err != nil {
-		log.Error(err)
+		return nil, nil, errors.New("failed to marshal credentials")
+	}
+
+	if len(host) <= 0 {
+		return nil, nil, errors.New("host is empty")
 	}
 
 	var apiUrl = "https://" + host + "/newapi/users"
@@ -176,6 +180,10 @@ const (
 
 func (z *ZultysSession) SendCommand(method RequestMethod, command string, params map[string]interface{}, postData interface{}) (*http.Response, error) {
 	// Construct the base URL
+	if z.Host == "" {
+		return nil, errors.New("host is empty")
+	}
+
 	apiUrl := "https://" + z.Host + "/newapi/?command=" + command + "&session=" + z.Session
 
 	// Prepare query values for GET request

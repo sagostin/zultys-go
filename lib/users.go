@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"encoding/json"
@@ -60,7 +60,7 @@ type UserListResponse struct {
 	Users   []User `json:"users"`
 }
 
-func handleGetUsersResponse(resp *http.Response) (*UserListResponse, error) {
+func HandleGetUsersResponse(resp *http.Response) (*UserListResponse, error) {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {

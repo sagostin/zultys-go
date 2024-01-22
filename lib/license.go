@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"encoding/json"
@@ -64,7 +64,7 @@ type LicenseResponse struct {
 	Success    bool       `json:"success"`
 }
 
-func handleLicenseResponse(resp *http.Response) (*LicenseResponse, error) {
+func HandleLicenseResponse(resp *http.Response) (*LicenseResponse, error) {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
