@@ -1,4 +1,4 @@
-module zultys-go
+module github.com/sagostin/zultys-go
 
 go 1.21
 
