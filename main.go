@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	zultys "github.com/sagostin/zultys-go/lib"
 	log "github.com/sirupsen/logrus"
-	zultys "zultys-go/lib"
 )
 
 func main() {
