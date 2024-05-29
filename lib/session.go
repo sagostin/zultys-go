@@ -79,7 +79,7 @@ func (l *LoginRequest) Login(host string) (*ZultysSession, *LoginResponse, error
 	zSession.Session = response.Session
 
 	if response.Success == false {
-		return nil, response, errors.New("login failed")
+		return nil, response, errors.New("login zultys failed")
 	} else if response.ApiAccess.WebAdmin == false {
 		return nil, response, errors.New("user does not have WebAdmin access")
 	}
