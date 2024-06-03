@@ -52,6 +52,7 @@ func (l *LoginRequest) Login(host string) (*ZultysSession, *LoginResponse, error
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Error(err)
+		return nil, nil, err
 	}
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
