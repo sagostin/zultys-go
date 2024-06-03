@@ -43,6 +43,7 @@ func (l *LoginRequest) Login(host string) (*ZultysSession, *LoginResponse, error
 	req, err := http.NewRequest("POST", apiUrl, bytes.NewBufferString(formData))
 	if err != nil {
 		log.Error(err)
+		return nil, nil, err
 	}
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
